@@ -100,7 +100,7 @@ export default function SharePage() {
         width: 1080px;
         height: 1920px;
         z-index: -1;
-        background: #000000;
+        background: transparent;
         font-family: 'Inter', sans-serif;
         overflow: hidden;
         visibility: hidden;
@@ -128,7 +128,7 @@ export default function SharePage() {
       // Gerar canvas
       console.log('🎨 Gerando canvas...');
       const canvas = await html2canvas(container, {
-        backgroundColor: '#000000',
+        backgroundColor: null,
         scale: 1,
         useCORS: true,
         allowTaint: true,
@@ -327,11 +327,11 @@ export default function SharePage() {
 
     return `
       <div style="
-        width: 1080px; 
-        height: 1920px; 
-        padding: 120px 90px; 
-        box-sizing: border-box; 
-        background: #000000;
+        width: 1080px;
+        height: 1920px;
+        padding: 120px 90px;
+        box-sizing: border-box;
+        background: transparent;
         position: relative;
       ">
         ${salmoHTML}
