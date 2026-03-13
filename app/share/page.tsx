@@ -582,45 +582,69 @@ export default function SharePage() {
     }
   };
 
-  // FUNÇÃO COPIAR CORRIGIDA
+  // FUNÇÃO COPIAR
   const handleCopiar = async () => {
+    if (!content?.salmoDoDia) {
+      alert('⏳ Aguarde o carregamento do conteúdo...');
+      return;
+    }
+
+    if (!navigator.clipboard || typeof ClipboardItem === 'undefined') {
+      alert('❌ Navegador não suporta cópia de imagens\n\n💡 Use o botão "Salvar" como alternativa');
+      return;
+    }
+
+    const modelTypes = ['salmo-frase', 'com-reflexao', 'completo'] as const;
+
+    // Safari (macOS e iOS) e qualquer browser no iOS usam WebKit e exigem que
+    // clipboard.write() seja chamado sincronamente no evento de clique.
+    // A solução é passar uma Promise dentro do ClipboardItem — o WebKit gerencia
+    // internamente sem quebrar o contexto de gesto do usuário.
+    const isSafariLike =
+      /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
+      /iPhone|iPad|iPod/.test(navigator.userAgent);
+
     setIsGenerating(true);
-    
+
+    if (isSafariLike) {
+      navigator.clipboard
+        .write([
+          new ClipboardItem({
+            'image/png': generateImage(modelTypes[currentModel]).then(canvas => {
+              if (!canvas) throw new Error('Erro ao gerar imagem');
+              return new Promise<Blob>((resolve, reject) => {
+                canvas.toBlob(
+                  blob => (blob ? resolve(blob) : reject(new Error('toBlob falhou'))),
+                  'image/png'
+                );
+              });
+            }),
+          }),
+        ])
+        .then(() => {
+          setIsGenerating(false);
+          alert('✅ Imagem copiada!\n\n📱 Cole no Instagram Stories');
+        })
+        .catch(error => {
+          setIsGenerating(false);
+          console.error('❌ Erro ao copiar:', error);
+          alert('❌ Erro ao copiar.\n\n💡 Tente o botão "Salvar"');
+        });
+      return;
+    }
+
+    // Chrome / Edge / outros: fluxo async normal
     try {
-      if (!content?.salmoDoDia) {
-        alert('⏳ Aguarde o carregamento do conteúdo...');
-        return;
-      }
-
-      // Detectar Safari e dar instruções específicas
-      const isSafari = /Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor);
-      
-      if (isSafari) {
-        alert(`📱 Safari detectado!\n\n⚙️ Para habilitar cópia de imagem:\n\n1. Vá em Ajustes\n2. Safari\n3. Avançado\n4. Recursos Experimentais\n5. Ative "Clipboard API"\n\n💡 Alternativa: Use o botão "Salvar"`);
-        return;
-      }
-
-      if (!navigator.clipboard || typeof ClipboardItem === 'undefined') {
-        alert('❌ Navegador não suporta cópia de imagens\n\n💡 Use o botão "Salvar" como alternativa');
-        return;
-      }
-
-      const modelTypes = ['salmo-frase', 'com-reflexao', 'completo'] as const;
       const canvas = await generateImage(modelTypes[currentModel]);
-      
       if (!canvas) {
         alert('❌ Erro ao gerar imagem');
         return;
       }
-
       const blob = await new Promise<Blob>((resolve, reject) => {
-        canvas.toBlob(blob => blob ? resolve(blob) : reject(), 'image/png', 1.0);
+        canvas.toBlob(blob => (blob ? resolve(blob) : reject()), 'image/png', 1.0);
       });
-
       await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-      
       alert('✅ Imagem copiada!\n\n📱 Cole no Instagram Stories');
-      
     } catch (error) {
       console.error('❌ Erro ao copiar:', error);
       alert('❌ Erro ao copiar.\n\n💡 Tente o botão "Salvar"');
