@@ -152,7 +152,7 @@ export const salmos: Salmo[] = [
   { referencia: "Salmos 143:1", texto: "Ó Senhor, ouve a minha oração, dá ouvidos às minhas súplicas! Atende-me na tua fidelidade, e na tua retidão;", tags: ["justiça", "oração", "fé"] },
   { referencia: "Salmos 144:1", texto: "Bendito seja o Senhor, minha rocha, que adestra as minhas mãos para a peleja e os meus dedos para a guerra;", tags: ["confiança"] },
   { referencia: "Salmos 145:1", texto: "Eu te exaltarei, ó Deus, rei meu; e bendirei o teu nome pelos séculos dos séculos.", tags: ["louvor"] },
-  { referencia: "Salmos 146:1", texto: "Louvai ao Senhor.Ó minha alma, louva ao Senhor.", tags: ["louvor"] },
+  { referencia: "Salmos 146:1", texto: "Louvai ao Senhor. Ó minha alma, louva ao Senhor.", tags: ["louvor"] },
   { referencia: "Salmos 147:1", texto: "Louvai ao Senhor; porque é bom cantar louvores ao nosso Deus; pois isso é agradável, e decoroso é o louvor.", tags: ["louvor", "oração"] },
   { referencia: "Salmos 148:1", texto: "Louvai ao Senhor! Louvai ao Senhor desde o céu, louvai-o nas alturas!", tags: ["louvor"] },
   { referencia: "Salmos 149:1", texto: "Louvai ao Senhor! Cantai ao Senhor um cântico novo, e o seu louvor na assembléia dos santos!", tags: ["louvor"] },

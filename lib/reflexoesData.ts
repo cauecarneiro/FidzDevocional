@@ -11,7 +11,7 @@ export const reflexoes: Reflexao[] = [
   { texto: "Nas tempestades da vida, a paz de Deus é nossa âncora. Ela nos sustenta quando tudo parece incerto ao nosso redor.", tags: ["paz"] },
   { texto: "A paz interior floresce quando escolhemos perdoar, amar e confiar, mesmo quando não compreendemos os propósitos de Deus.", tags: ["paz"] },
   { texto: "Deus não promete ausência de problemas, mas promete Sua presença constante. Nessa presença encontramos a paz que excede todo entendimento.", tags: ["paz"] },
-  { texto: "A cada manhã, Deus renova Sua misericórdia sobre nós. Suas compassões não têm fim, e isso é razão suficiente para vivermos em gratidão.", tags: ["gratidão"] },
+  { texto: "A cada manhã, Deus renova Sua misericórdia sobre nós. Suas compaixões não têm fim, e isso é razão suficiente para vivermos em gratidão.", tags: ["gratidão"] },
   { texto: "Ser grato não é apenas reconhecer as bênçãos, mas ver a mão de Deus transformando até nossas dificuldades em oportunidades de crescimento.", tags: ["gratidão"] },
   { texto: "A gratidão muda nossa perspectiva: ao invés de focar no que nos falta, celebramos tudo o que Deus já nos deu.", tags: ["gratidão"] },
   { texto: "Quando cultivamos um coração grato, descobrimos que já temos muito mais do que imaginávamos. Deus sempre foi generoso conosco.", tags: ["gratidão"] },
