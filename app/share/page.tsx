@@ -192,11 +192,12 @@ export default function SharePage() {
       <div style="margin-bottom: 60px;">
         <h1 style="
           font-family: 'Inter', sans-serif; 
-          font-weight: 600; 
-          font-size: 110px; 
-          color: white; 
-          margin: 0 0 20px 0; 
+          font-weight: 700;
+          font-size: 110px;
+          color: white;
+          margin: 0 0 20px 0;
           letter-spacing: -1px;
+          text-shadow: 0px -2px 20px rgba(0,0,0,0.05);
         ">Salmo</h1>
         <div style="
           width: 100%; 
@@ -206,12 +207,13 @@ export default function SharePage() {
         "></div>
         <p style="
           font-family: 'Inter', sans-serif; 
-          font-weight: 400; 
-          font-size: 44px; 
-          color: white; 
-          margin: 0; 
-          line-height: 1.4; 
+          font-weight: 700;
+          font-size: 44px;
+          color: white;
+          margin: 0;
+          line-height: 1.4;
           letter-spacing: 0px;
+          text-shadow: 0px -2px 20px rgba(0,0,0,0.05);
         ">${salmoTexto}</p>
       </div>
     `;
@@ -220,11 +222,12 @@ export default function SharePage() {
       <div style="margin-bottom: ${(type === 'com-reflexao' || type === 'completo') ? '60px' : '0px'};">
         <h1 style="
           font-family: 'Inter', sans-serif; 
-          font-weight: 600; 
-          font-size: 110px; 
-          color: white; 
-          margin: 0 0 20px 0; 
+          font-weight: 700;
+          font-size: 110px;
+          color: white;
+          margin: 0 0 20px 0;
           letter-spacing: -1px;
+          text-shadow: 0px -2px 20px rgba(0,0,0,0.05);
         ">Reflexão</h1>
         <div style="
           width: 100%; 
@@ -234,12 +237,13 @@ export default function SharePage() {
         "></div>
         <p style="
           font-family: 'Inter', sans-serif; 
-          font-weight: 400; 
-          font-size: 44px; 
-          color: white; 
-          margin: 0; 
-          line-height: 1.4; 
+          font-weight: 700;
+          font-size: 44px;
+          color: white;
+          margin: 0;
+          line-height: 1.4;
           letter-spacing: 0px;
+          text-shadow: 0px -2px 20px rgba(0,0,0,0.05);
         ">${reflexaoTexto}</p>
       </div>
     `;
@@ -248,11 +252,12 @@ export default function SharePage() {
       <div style="margin-bottom: ${type === 'completo' ? '60px' : '0px'};">
         <h1 style="
           font-family: 'Inter', sans-serif; 
-          font-weight: 600; 
-          font-size: 110px; 
-          color: white; 
-          margin: 0 0 20px 0; 
+          font-weight: 700;
+          font-size: 110px;
+          color: white;
+          margin: 0 0 20px 0;
           letter-spacing: -1px;
+          text-shadow: 0px -2px 20px rgba(0,0,0,0.05);
         ">Frase do dia</h1>
         <div style="
           width: 100%; 
@@ -262,12 +267,13 @@ export default function SharePage() {
         "></div>
         <p style="
           font-family: 'Inter', sans-serif; 
-          font-weight: 400; 
-          font-size: 44px; 
-          color: white; 
-          margin: 0; 
-          line-height: 1.4; 
+          font-weight: 700;
+          font-size: 44px;
+          color: white;
+          margin: 0;
+          line-height: 1.4;
           letter-spacing: 0px;
+          text-shadow: 0px -2px 20px rgba(0,0,0,0.05);
         ">${fraseTexto}</p>
       </div>
     ` : '';
@@ -276,11 +282,12 @@ export default function SharePage() {
       <div style="margin-bottom: 0px;">
         <h1 style="
           font-family: 'Inter', sans-serif; 
-          font-weight: 600; 
-          font-size: 110px; 
-          color: white; 
-          margin: 0 0 20px 0; 
+          font-weight: 700;
+          font-size: 110px;
+          color: white;
+          margin: 0 0 20px 0;
           letter-spacing: -1px;
+          text-shadow: 0px -2px 20px rgba(0,0,0,0.05);
         ">Prática do dia</h1>
         <div style="
           width: 100%; 
@@ -290,12 +297,13 @@ export default function SharePage() {
         "></div>
         <p style="
           font-family: 'Inter', sans-serif; 
-          font-weight: 400; 
-          font-size: 44px; 
-          color: white; 
-          margin: 0; 
-          line-height: 1.4; 
+          font-weight: 700;
+          font-size: 44px;
+          color: white;
+          margin: 0;
+          line-height: 1.4;
           letter-spacing: 0px;
+          text-shadow: 0px -2px 20px rgba(0,0,0,0.05);
         ">${praticaTexto}</p>
       </div>
     ` : '';
