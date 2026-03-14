@@ -623,7 +623,7 @@ export default function SharePage() {
         ])
         .then(() => {
           setIsGenerating(false);
-          alert('✅ Imagem copiada!\n\n📱 Cole no Instagram Stories');
+          alert('Imagem copiada, espalhe fé, não só palavras');
         })
         .catch(error => {
           setIsGenerating(false);
@@ -644,7 +644,7 @@ export default function SharePage() {
         canvas.toBlob(blob => (blob ? resolve(blob) : reject()), 'image/png', 1.0);
       });
       await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
-      alert('✅ Imagem copiada!\n\n📱 Cole no Instagram Stories');
+      alert('Imagem copiada, espalhe fé, não só palavras');
     } catch (error) {
       console.error('❌ Erro ao copiar:', error);
       alert('❌ Erro ao copiar.\n\n💡 Tente o botão "Salvar"');
