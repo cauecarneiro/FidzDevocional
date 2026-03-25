@@ -7,6 +7,7 @@ import { praticas } from '@/lib/praticasData';
 import { salmos } from '@/lib/salmosData';
 import { frases } from '@/lib/frasesData';
 import { reflexoes } from '@/lib/reflexoesData';
+import { getTagsDoMes } from '@/lib/calendarioFidz';
 
 export default function Home() {
   const router = useRouter();
@@ -37,8 +38,11 @@ export default function Home() {
 
     const hash = generateHash(seed);
 
-    // 3. Selecionar o salmo do dia
-    const salmoDoDia = salmos[hash % salmos.length];
+    // 3. Selecionar o salmo do dia filtrado pelo tema do mês (Calendário Fidz)
+    const monthTags = getTagsDoMes();
+    const salmosDoMes = salmos.filter(s => s.tags.some(t => monthTags.includes(t)));
+    const salmosPool = salmosDoMes.length > 0 ? salmosDoMes : salmos;
+    const salmoDoDia = salmosPool[hash % salmosPool.length];
 
     // 4. Função para encontrar item com tags compatíveis
     const findCompatibleItem = <T extends { tags: string[] }>(

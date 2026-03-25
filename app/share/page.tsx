@@ -7,6 +7,7 @@ import { salmos } from '@/lib/salmosData';
 import { frases } from '@/lib/frasesData';
 import { praticas } from '@/lib/praticasData';
 import { reflexoes } from '@/lib/reflexoesData';
+import { getTagsDoMes } from '@/lib/calendarioFidz';
 
 export default function SharePage() {
   const router = useRouter();
@@ -39,7 +40,10 @@ export default function SharePage() {
       };
 
       const hash = generateHash(seed);
-      const salmoDoDia = salmos[hash % salmos.length];
+      const monthTags = getTagsDoMes();
+      const salmosDoMes = salmos.filter(s => s.tags.some(t => monthTags.includes(t)));
+      const salmosPool = salmosDoMes.length > 0 ? salmosDoMes : salmos;
+      const salmoDoDia = salmosPool[hash % salmosPool.length];
 
       const findCompatibleItem = <T extends { tags: string[] }>(
         items: T[],
