@@ -3,11 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { praticas } from '@/lib/praticasData';
-import { salmos } from '@/lib/salmosData';
-import { frases } from '@/lib/frasesData';
-import { reflexoes } from '@/lib/reflexoesData';
-import { getTagsDoMes } from '@/lib/calendarioFidz';
+import { getDailyContent } from '@/lib/dailyContent';
 
 export default function Home() {
   const router = useRouter();
@@ -15,80 +11,12 @@ export default function Home() {
   const dataFormatada = new Date().toLocaleDateString('pt-BR');
 
   useEffect(() => {
-    // 1. Criar ou recuperar um ID único para este usuário
     let userId = localStorage.getItem('fidz_user_id');
     if (!userId) {
       userId = Math.random().toString(36).substring(2, 15);
       localStorage.setItem('fidz_user_id', userId);
     }
-
-    // 2. Criar uma semente que combina o ID do usuário + Data de hoje
-    const today = new Date().toDateString();
-    const seed = userId + today;
-
-    // Função simples de hash para transformar string em número
-    const generateHash = (str: string) => {
-      let hash = 0;
-      for (let i = 0; i < str.length; i++) {
-        hash = (hash << 5) - hash + str.charCodeAt(i);
-        hash |= 0;
-      }
-      return Math.abs(hash);
-    };
-
-    const hash = generateHash(seed);
-
-    // 3. Selecionar o salmo do dia filtrado pelo tema do mês (Calendário Fidz)
-    const monthTags = getTagsDoMes();
-    const salmosDoMes = salmos.filter(s => s.tags.some(t => monthTags.includes(t)));
-    const salmosPool = salmosDoMes.length > 0 ? salmosDoMes : salmos;
-    const salmoDoDia = salmosPool[hash % salmosPool.length];
-
-    // 4. Função para encontrar item com tags compatíveis
-    const findCompatibleItem = <T extends { tags: string[] }>(
-      items: T[],
-      targetTags: string[],
-      fallbackIndex: number
-    ): T => {
-      // Tentar encontrar itens que compartilham pelo menos 1 tag
-      const compatible = items.filter(item =>
-        item.tags.some(tag => targetTags.includes(tag))
-      );
-
-      if (compatible.length > 0) {
-        // Se encontrou itens compatíveis, escolher um aleatório entre eles
-        return compatible[hash % compatible.length];
-      }
-
-      // Fallback: usar índice aleatório se não encontrar match
-      return items[fallbackIndex];
-    };
-
-    // 5. Selecionar frase, reflexão e prática compatíveis com as tags do salmo
-    const fraseDoDia = findCompatibleItem(
-      frases,
-      salmoDoDia.tags,
-      hash % frases.length
-    );
-
-    const reflexaoDoDia = findCompatibleItem(
-      reflexoes,
-      salmoDoDia.tags,
-      hash % reflexoes.length
-    );
-
-    const praticaDoDia = findCompatibleItem(
-      praticas,
-      salmoDoDia.tags,
-      hash % praticas.length
-    );
-
-    setContent({
-      salmoDoDia,
-      fraseDoDia: fraseDoDia.texto,
-      reflexaoDoDia: reflexaoDoDia.texto,
-      praticaDoDia: praticaDoDia.texto,
-    });
+    setContent(getDailyContent(userId));
   }, []);
 
   // Enquanto o conteúdo não carrega no lado do cliente

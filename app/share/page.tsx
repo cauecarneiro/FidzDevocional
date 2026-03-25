@@ -3,11 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import html2canvas from 'html2canvas';
-import { salmos } from '@/lib/salmosData';
-import { frases } from '@/lib/frasesData';
-import { praticas } from '@/lib/praticasData';
-import { reflexoes } from '@/lib/reflexoesData';
-import { getTagsDoMes } from '@/lib/calendarioFidz';
+import { getDailyContent } from '@/lib/dailyContent';
 
 export default function SharePage() {
   const router = useRouter();
@@ -18,8 +14,6 @@ export default function SharePage() {
   const [isLoadingPreviews, setIsLoadingPreviews] = useState(false);
 
   useEffect(() => {
-    console.log('🔄 Carregando conteúdo igual à home page...');
-    
     try {
       let userId = localStorage.getItem('fidz_user_id');
       if (!userId) {
@@ -27,47 +21,7 @@ export default function SharePage() {
         localStorage.setItem('fidz_user_id', userId);
       }
 
-      const today = new Date().toDateString();
-      const seed = userId + today;
-
-      const generateHash = (str: string) => {
-        let hash = 0;
-        for (let i = 0; i < str.length; i++) {
-          hash = (hash << 5) - hash + str.charCodeAt(i);
-          hash |= 0;
-        }
-        return Math.abs(hash);
-      };
-
-      const hash = generateHash(seed);
-      const monthTags = getTagsDoMes();
-      const salmosDoMes = salmos.filter(s => s.tags.some(t => monthTags.includes(t)));
-      const salmosPool = salmosDoMes.length > 0 ? salmosDoMes : salmos;
-      const salmoDoDia = salmosPool[hash % salmosPool.length];
-
-      const findCompatibleItem = <T extends { tags: string[] }>(
-        items: T[],
-        targetTags: string[],
-        fallbackIndex: number
-      ): T => {
-        const compatible = items.filter(item =>
-          item.tags.some(tag => targetTags.includes(tag))
-        );
-        return compatible.length > 0 ? compatible[hash % compatible.length] : items[fallbackIndex];
-      };
-
-      const fraseDoDia = findCompatibleItem(frases, salmoDoDia.tags, hash % frases.length);
-      const reflexaoDoDia = findCompatibleItem(reflexoes, salmoDoDia.tags, hash % reflexoes.length);
-      const praticaDoDia = findCompatibleItem(praticas, salmoDoDia.tags, hash % praticas.length);
-
-      const contentData = {
-        salmoDoDia,
-        fraseDoDia: fraseDoDia.texto,
-        reflexaoDoDia: reflexaoDoDia.texto,
-        praticaDoDia: praticaDoDia.texto,
-      };
-
-      console.log('📅 Conteúdo carregado:', contentData);
+      const contentData = getDailyContent(userId);
       setContent(contentData);
       
       // Gerar previews dos modelos após carregar conteúdo
