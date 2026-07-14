@@ -492,7 +492,7 @@ export default function SharePage() {
           ${fraseHTML}
           ${praticaHTML}
           ${logoHTML}
-        </div>n
+        </div>
       `;
 
       await new Promise(resolve => setTimeout(resolve, 300));
@@ -682,12 +682,14 @@ export default function SharePage() {
   };
 
   return (
-    <div 
+    <div
       className="fixed inset-0 w-full h-full"
-      style={{ 
+      style={{
         backgroundColor: '#21211F',
         width: '100vw',
-        height: '100vh',
+        // 100dvh (dynamic viewport height) exclui as barras do Safari iOS,
+        // evitando que os botões inferiores fiquem escondidos atrás da barra.
+        height: '100dvh',
         position: 'fixed',
         top: 0,
         left: 0,
@@ -698,7 +700,7 @@ export default function SharePage() {
       {/* Header */}
       <div style={{
         position: 'absolute',
-        top: 0,
+        top: 'env(safe-area-inset-top)',
         left: 0,
         right: 0,
         height: '70px',
@@ -737,7 +739,7 @@ export default function SharePage() {
       {/* Retângulo escuro com modelos */}
       <div style={{
         position: 'absolute',
-        top: '70px',
+        top: 'calc(70px + env(safe-area-inset-top))',
         left: 0,
         right: 0,
         width: '100%',
@@ -959,7 +961,9 @@ export default function SharePage() {
       {/* Botões na parte inferior */}
       <div style={{
         position: 'absolute',
-        bottom: '40px',
+        // Distância da borda inferior + área segura (indicador de home do iPhone),
+        // garantindo que os botões fiquem acima da barra do Safari.
+        bottom: 'calc(40px + env(safe-area-inset-bottom))',
         left: 0,
         right: 0,
         display: 'flex',
@@ -968,9 +972,11 @@ export default function SharePage() {
         alignItems: 'center'
       }}>
         {/* Botão Copiar */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+        <div
+          onClick={handleCopiar}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: isGenerating ? 'not-allowed' : 'pointer' }}
+        >
           <div
-            onClick={handleCopiar}
             style={{
               width: '48px',
               height: '48px',
@@ -979,7 +985,6 @@ export default function SharePage() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              cursor: isGenerating ? 'not-allowed' : 'pointer',
               opacity: isGenerating ? 0.6 : 1,
               transition: 'all 0.3s ease'
             }}
@@ -1000,9 +1005,11 @@ export default function SharePage() {
         </div>
 
         {/* Botão Salvar */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+        <div
+          onClick={handleSalvar}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: isGenerating ? 'not-allowed' : 'pointer' }}
+        >
           <div
-            onClick={handleSalvar}
             style={{
               width: '48px',
               height: '48px',
@@ -1011,7 +1018,6 @@ export default function SharePage() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              cursor: isGenerating ? 'not-allowed' : 'pointer',
               opacity: isGenerating ? 0.6 : 1,
               transition: 'all 0.3s ease'
             }}
@@ -1033,9 +1039,11 @@ export default function SharePage() {
         </div>
 
         {/* Botão Mais */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+        <div
+          onClick={handleMais}
+          style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', cursor: isGenerating ? 'not-allowed' : 'pointer' }}
+        >
           <div
-            onClick={handleMais}
             style={{
               width: '48px',
               height: '48px',
@@ -1044,7 +1052,6 @@ export default function SharePage() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              cursor: isGenerating ? 'not-allowed' : 'pointer',
               opacity: isGenerating ? 0.6 : 1,
               transition: 'all 0.3s ease'
             }}
